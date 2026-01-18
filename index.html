@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS Inteligente - Sistema de Gestión Comercial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #5d6d7e;
+            --secondary-color: #85929e;
+            --accent-color: #7dcea0;
+            --dark-color: #2c3e50;
+            --light-color: #f8f9fa;
+            --gradient-primary: linear-gradient(135deg, #5d6d7e 0%, #495a6b 100%);
+            --gradient-accent: linear-gradient(135deg, #7dcea0 0%, #6bb894 100%);
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .hero-section {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 80px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path d="M0,0 L100,100 M100,0 L0,100" stroke="white" stroke-width="1"/></svg>');
+        }
+        
+        .benefit-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid #eef2f7;
+            transition: all 0.3s ease;
+            height: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(93, 109, 126, 0.1);
+        }
+        
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-accent);
+            border-radius: 3px;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .demo-image {
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            max-width: 100%;
+            height: auto;
+            border: 3px solid white;
+        }
+        
+        .demo-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .btn-primary {
+            background: var(--gradient-primary);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(93, 109, 126, 0.3);
+        }
+        
+        .gallery-section {
+            background: #f8f9fa;
+            padding: 60px 0;
+        }
+        
+        .gallery-item {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 3px solid white;
+            background: white;
+            padding: 5px;
+        }
+        
+        .gallery-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #eef2f7 0%, #e0e7ff 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #85929e;
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+        
+        .image-placeholder:hover {
+            background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
+            border-color: var(--primary-color);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        
+        .section-subtitle {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin: 30px 0 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0 40px;
+                text-align: center;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+            
+            .benefit-card {
+                padding: 20px;
+            }
+            
+            .gallery-image {
+                height: 180px;
+            }
+            
+            .stat-number {
+                font-size: 28px;
+            }
+            
+            .contact-info {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-section {
+                padding: 50px 0 30px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .gallery-image {
+                height: 150px;
+            }
+            
+            .benefit-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#" style="color: var(--primary-color);">
+                <i class="bi bi-cash-coin me-2"></i>POS Inteligente
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#benefits">Beneficios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Galería</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Características</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-primary" href="#contact">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-5 fw-bold mb-3">Sistema POS Profesional</h1>
+                    <p class="lead mb-4">Gestión completa de ventas, inventario y reportes para tu negocio.</p>
+                    <div class="row mt-4 pt-3">
+                        <div class="col-4">
+                            <div class="stat-number">100%</div>
+                            <small>Funcional</small>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-number">24/7</div>
+                            <small>Estable</small>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-number">✓</div>
+                            <small>Completo</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-4 mt-lg-0">
+                    <div class="text-center">
+                        <img src="/fotos/caja.PNG" alt="Interfaz principal del sistema POS" 
+                             class="img-fluid demo-image">
+                        <small class="text-light opacity-75 mt-2 d-block">Interfaz principal del sistema</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beneficios -->
+    <section id="benefits" class="py-5">
+        <div class="container py-4">
+            <h2 class="text-center section-title">¿Por qué elegir mi sistema POS?</h2>
+            
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-speedometer2"></i>
+                        </div>
+                        <h4>Ventas Rápidas</h4>
+                        <p class="text-muted">
+                            • Escaneo de código de barras<br>
+                            • Productos manuales instantáneos<br>
+                            • Múltiples métodos de pago<br>
+                            • Tickets profesionales
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-clipboard-data"></i>
+                        </div>
+                        <h4>Control Total</h4>
+                        <p class="text-muted">
+                            • Gestión de inventario en tiempo real<br>
+                            • Reportes detallados de ventas<br>
+                            • Control de caja por turnos<br>
+                            • Historial completo
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h4>Seguridad Garantizada</h4>
+                        <p class="text-muted">
+                            • Usuarios con roles definidos<br>
+                            • Backup automático de datos<br>
+                            • Datos asegurados<br>
+                            • Sistema estable y confiable
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galería de Funcionalidades -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <h2 class="text-center section-title">Galería del Sistema</h2>
+            <p class="text-center text-muted mb-4">Capturas de pantalla de las diferentes funcionalidades</p>
+            
+            <!-- Sección Caja y Ventas -->
+            <h4 class="section-subtitle"><i class="bi bi-cash-register me-2"></i>Módulo de Caja y Ventas</h4>
+            <div class="row mb-4">
+                <div class="col-md-6 col-lg-4 gallery-item">
+                    <img src="/fotos/caja.PNG" alt="Interfaz principal de caja" class="gallery-image">
+                    <p class="mt-2"><strong>Pantalla Principal de Caja</strong><br>
+                    <small class="text-muted">Interfaz de ventas y escaneo</small></p>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 gallery-item">
+                    <img src="/fotos/cierre de caja.PNG" alt="Cierre de caja" class="gallery-image">
+                    <p class="mt-2"><strong>Cierre de Caja</strong><br>
+                    <small class="text-muted">Finalización de turno y reportes</small></p>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 gallery-item">
+                    <img src="/fotos/ventas.PNG" alt="Historial de ventas" class="gallery-image">
+                    <p class="mt-2"><strong>Historial de Ventas</strong><br>
+                    <small class="text-muted">Todas las ventas registradas</small></p>
+                </div>
+            </div>
+            
+            <!-- Sección Proveedores y Productos -->
+            <h4 class="section-subtitle"><i class="bi bi-truck me-2"></i>Gestión de Productos y Proveedores</h4>
+            <div class="row mb-4">
+                <div class="col-md-6 col-lg-4 gallery-item">
+                    <img src="/fotos/proveedores.PNG "alt="Gestión de proveedores" class="gallery-image">
+                    <p class="mt-2"><strong>Gestión de Proveedores</strong><br>
+                    <small class="text-muted">Administración de proveedores</small></p>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 gallery-item">
+                    <img src="/fotos/productos.PNG" alt="Catálogo de productos" class="gallery-image">
+                    <p class="mt-2"><strong>Catálogo de Productos</strong><br>
+                    <small class="text-muted">Todos los productos del inventario</small></p>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 gallery-item">
+                    <img src="/fotos/histotorial de caja.PNG" alt="Historial de caja" class="gallery-image">
+                    <p class="mt-2"><strong>Historial de Caja</strong><br>
+                    <small class="text-muted">Turnos y reportes de cierre</small></p>
+                </div>
+            </div>
+            
+            <!-- Información adicional sobre funcionalidades -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-info-circle-fill fs-4 me-3"></i>
+                            <div>
+                                <h5 class="mb-1">Todas las imágenes son capturas reales del sistema</h5>
+                                <p class="mb-0">El sistema incluye además: gestión de usuarios, reportes gráficos, control de stock, impresión de tickets, y mucho más.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Características Técnicas -->
+    <section id="features" class="py-5">
+        <div class="container py-4">
+            <h2 class="text-center section-title">Características del Sistema</h2>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="d-flex">
+                        <div class="feature-icon me-3">
+                            <i class="bi bi-database"></i>
+                        </div>
+                        <div>
+                            <h5>Base de Datos PostgreSQL</h5>
+                            <p class="text-muted">Sistema de base de datos robusto y confiable con pgAdmin para gestión visual.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="d-flex">
+                        <div class="feature-icon me-3">
+                            <i class="bi bi-code-slash"></i>
+                        </div>
+                        <div>
+                            <h5>Desarrollado con Python/Flask</h5>
+                            <p class="text-muted">Backend en Python con Flask Framework, frontend con Bootstrap y JavaScript.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="d-flex">
+                        <div class="feature-icon me-3">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
+                        <div>
+                            <h5>Gestión Completa de Caja</h5>
+                            <p class="text-muted">Apertura/cierre de turnos, control de montos iniciales y finales, diferencia calculada.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="d-flex">
+                        <div class="feature-icon me-3">
+                            <i class="bi bi-credit-card"></i>
+                        </div>
+                        <div>
+                            <h5>Pagos Combinados</h5>
+                            <p class="text-muted">Acepta múltiples métodos de pago en una sola venta (efectivo, tarjeta, transferencia).</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="d-flex">
+                        <div class="feature-icon me-3">
+                            <i class="bi bi-printer"></i>
+                        </div>
+                        <div>
+                            <h5>Tickets Personalizados</h5>
+                            <p class="text-muted">Generación de tickets profesionales con todos los datos de la venta.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="d-flex">
+                        <div class="feature-icon me-3">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+                        <div>
+                            <h5>Reportes Detallados</h5>
+                            <p class="text-muted">Ventas por fecha, productos más vendidos, análisis de rentabilidad.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Demostrativo -->
+    <section id="contact" class="py-5 bg-light">
+        <div class="container py-4">
+            <h2 class="text-center section-title">Información de Contacto</h2>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-info">
+                        <h4 class="text-center mb-4">Sobre el Desarrollador</h4>
+                        
+                        <div class="text-center mb-4">
+                            <div class="feature-icon mx-auto mb-3">
+                                <i class="bi bi-person-badge"></i>
+                            </div>
+                            <h5>Desarrollador de Sistemas POS</h5>
+                            <p class="text-muted">Especializado en soluciones de gestión comercial para pequeños y medianos negocios.</p>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <h6><i class="bi bi-envelope text-primary me-2"></i>Correo Electrónico</h6>
+                                <p class="text-muted">acostajuanma854@gmail.com</p>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <h6><i class="bi bi-instagram text-primary me-2"></i>Instagram</h6>
+                                <p class="text-muted">
+                                    <a href="https://www.instagram.com/jn_gg23" target="_blank" class="text-decoration-none">
+                                        @jn_gg23
+                                    </a>
+                                </p>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <h6><i class="bi bi-facebook text-primary me-2"></i>Facebook</h6>
+                                <p class="text-muted">
+                                    <a href="https://www.facebook.com/share/16UqjpCsWm/" target="_blank" class="text-decoration-none">
+                                        POS Inteligente
+                                    </a>
+                                </p>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <h6><i class="bi bi-clock text-primary me-2"></i>Disponibilidad</h6>
+                                <p class="text-muted">Proyectos personalizados<br>Desarrollo a medida</p>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-info mt-4">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <strong>Demostración:</strong> Esta página muestra las capacidades del sistema POS desarrollado. Para más información, contactar por correo electrónico.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h5 class="mb-0">
+                        <i class="bi bi-cash-coin me-2"></i>POS Inteligente
+                    </h5>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <small class="opacity-75">
+                        Sistema de Gestión Comercial - Versión Demostrativa
+                    </small>
+                </div>
+            </div>
+            <hr class="my-3 opacity-25">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0 opacity-75">
+                        <small>&copy; 2026 Sistema POS. Desarrollado con Python, Flask y PostgreSQL.</small>
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div>
+                        <a href="https://www.instagram.com/jn_gg23" target="_blank" class="text-white opacity-75 me-3">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/16UqjpCsWm/" target="_blank" class="text-white opacity-75">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scroll para navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Efecto hover para galería
+        const galleryItems = document.querySelectorAll('.gallery-image');
+        galleryItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Optimización para móviles
+        function optimizeForMobile() {
+            if (window.innerWidth < 768) {
+                // Reducir tamaño de imágenes en móviles
+                document.querySelectorAll('.gallery-image').forEach(img => {
+                    img.style.height = '150px';
+                });
+            }
+        }
+        
+        // Ejecutar al cargar y al redimensionar
+        window.addEventListener('load', optimizeForMobile);
+        window.addEventListener('resize', optimizeForMobile);
+    </script>
+</body>
+</html>
